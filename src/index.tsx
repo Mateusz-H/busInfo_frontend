@@ -6,13 +6,3 @@ import {App} from "./Components/App";
 ReactDOM.render((
     <App/>
 ), document.getElementById('root'));
-const socket = io("http://localhost:4000/",{path:"/api",transports:["websocket"]});
-socket.on("connect",()=>{
-    console.log("connected")
-    socket.emit("getStops")
-})
-
-socket.on("stopsReceive",(stops:any)=>{
-    store.setStops(stops);
-    }
-)
