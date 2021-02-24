@@ -4,8 +4,8 @@ import {store} from "../stores/store";
 export class StopInfoHub {
     hubConnection:Socket;
 
-    constructor() {
-        this.hubConnection=io("http://localhost:4000/",{path:"/api",transports:["websocket"]});
+    constructor(uri:string) {
+        this.hubConnection=io(uri,{path:"/api",transports:["websocket"]});
         this.getStops();
         this.initializeDataReceivers();
     }
@@ -17,14 +17,18 @@ export class StopInfoHub {
         this.stopsReceive()
     }
     joinToStopChannel(stopName:string){
-        this.hubConnection.emit("joinToStopChannel",stopName)
+        if(store.selectedStop){
+            this.leaveSymbolChannel(store.selectedStop)
+        }
+        this.hubConnection.emit("joinToStopChannel",stopName);
+    }
+    leaveSymbolChannel(stopName:string){
+        this.hubConnection.emit("leaveSymbolChannel",stopName);
     }
     timetableReceive(){
-        this.hubConnection.on("timetableReceive",(stopName:string,timetable: any)=>store.setTimetable(stopName,timetable))
+        this.hubConnection.on("timetableReceive",(stopName:string,timetable: any)=>store.setTimetable(stopName,timetable));
     }
     stopsReceive(){
-        this.hubConnection.on("stopsReceive",(stops:any)=>store.setStops(stops))
+        this.hubConnection.on("stopsReceive",(stops:any)=>store.setStops(stops));
     }
 }
-
-export const stopInfoHub = new StopInfoHub();
