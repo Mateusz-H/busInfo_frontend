@@ -9,7 +9,10 @@ export class Store{
     @observable stops={};
     @observable normalizedStops={} as any;
     @observable timetable={} as any;
-    @observable selectedStop: string|undefined;
+    @observable selectedStop="";
+    @observable stopsFilter="";
+    @observable filteredStops=[];
+    @observable searchBarFocused = false;
 
     @action setStops(stopsList:any){
         this.stops=stopsList;
@@ -26,11 +29,30 @@ export class Store{
     @action setCurrentStop(stopName:string){
         this.selectedStop=stopName;
     }
+    @action setStopsFilter(stopsFilter:string){
+        this.stopsFilter=stopsFilter;
+    }
+    @action setSearchBarFocused(focused:boolean){
+        this.searchBarFocused=focused;
+    }
+    @computed  get getFilteredStops(){
+        const normalizedFilter = normalizeString(this.stopsFilter)
+        return this.getNormalizedStopsList.filter(stopName=>stopName.indexOf(normalizedFilter)>-1);
+    }
+    @computed get getNumberOfFilteredStops(){
+        return this.getFilteredStops.length;
+    }
     @computed get getStopsList(){
         return Object.keys(this.stops);
     }
     @computed get getNormalizedStopsList(){
         return Object.keys(this.normalizedStops)
+    }
+    @computed get getVisibilityOfStopsList(){
+        return store.getNumberOfFilteredStops && store.searchBarFocused
+    }
+    @computed get getCurrentTimetable(){
+        return this.timetable[this.selectedStop]
     }
 }
 export const store=new Store();
