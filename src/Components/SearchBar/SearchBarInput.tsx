@@ -16,6 +16,7 @@ export const SearchBarInput = observer(({ value, onChange,onFocus }: any) => {
         onFocus={onFocus}
         id="stopName"
         type="text"
+          autoFocus
         value={value}
         onChange={onChange}
         required
