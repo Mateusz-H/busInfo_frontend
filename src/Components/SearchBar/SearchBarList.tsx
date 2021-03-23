@@ -7,12 +7,8 @@ import {
   SearchBarListOverflowStyled,
   SearchBarListStyled,
 } from "./_styled";
-const setCurrentStop = (stopName: string) => () => {
-  stopInfoHub.joinToStopChannel(stopName);
-  store.setCurrentStop(stopName);
-  store.setStopsFilter(stopName);
-  store.setSearchBarFocused(false)
-};
+import { NavLink } from "react-router-dom";
+
 export const SearchBarList = observer(() => {
   return (
     <SearchBarListOverflowStyled>
@@ -26,12 +22,15 @@ export const SearchBarList = observer(() => {
       >
         {store.getFilteredStops.map((stopName) => {
           return (
-            <SearchBarListElementStyled
-              key={stopName}
-              onClick={setCurrentStop(store.normalizedStops[stopName])}
-            >
-              {store.normalizedStops[stopName]}
-            </SearchBarListElementStyled>
+              <NavLink to="/timetable">
+                  <SearchBarListElementStyled
+                      key={stopName}
+                      onClick={()=>store.setCurrentStop(store.normalizedStops[stopName])}
+                  >
+                      {store.normalizedStops[stopName]}
+                  </SearchBarListElementStyled>
+              </NavLink>
+
           );
         })}
       </SearchBarListStyled>

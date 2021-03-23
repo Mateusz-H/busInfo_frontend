@@ -67,6 +67,10 @@ export const SearchBarListStyled:StyledComponent<any, any> = styled.div`
     border-bottom-right-radius: 10px;
   }
   overflow:${props=>props.numberOfElements>=5?'auto':'hidden'};
+  a{
+    color:black;
+    text-decoration: none;
+  }
 `;
 export const SearchBarListElementStyled = styled.div`
   display: block;
