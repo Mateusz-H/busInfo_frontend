@@ -1,10 +1,16 @@
 import { observer } from "mobx-react";
 import React from "react";
+import { BiCalendarAlt } from "react-icons/bi";
 import { NavLink } from "react-router-dom";
-import { store } from "./../../stores/store";
+import { FavBarItemStyled } from "./_styled";
+import { store } from "../../stores/store";
 
-export const FavBarLastStop = observer(() => (
-  <div title={store.selectedStop}>
-    <NavLink to="/timetable" >ICO</NavLink>
-  </div>
-));
+export const FavBarLastStop = observer(() =>
+  store.getIsTimetableUnLoaded ? null : (
+    <NavLink exact to="/timetable">
+      <FavBarItemStyled unactive={store.getIsTimetableUnLoaded}>
+        <BiCalendarAlt />
+      </FavBarItemStyled>
+    </NavLink>
+  )
+);

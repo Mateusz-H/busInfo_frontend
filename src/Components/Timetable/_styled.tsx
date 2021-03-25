@@ -11,7 +11,6 @@ export const TimetableStyled = styled.div`
   width: 100vw;
   top:50px;
   animation: ${fadeIn} 500ms ease-in;
-  height: 100vh;
   table {
     border-collapse: collapse;
     max-height: 50vh;
@@ -38,3 +37,19 @@ export const TimetableStyled = styled.div`
     color: white;
   }
 `;
+export const TimetableOverflowStyled = styled.div`
+max-height: 70vh;
+  overflow-y: auto;
+`
+export const TimetableSelectedStopStyled = styled.div`
+  font-size: 2em;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+  svg{
+  transform: translateY(0.2em);
+    :hover{
+      fill: goldenrod;
+      cursor:pointer;
+    }
+  }
+`

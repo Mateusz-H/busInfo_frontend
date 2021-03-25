@@ -46,13 +46,15 @@ export class Store {
   }
   @computed get getFilteredStops() {
     const normalizedFilter = normalizeString(this.stopsFilter);
-    if (normalizedFilter) {
+    if (normalizedFilter)
       return this.getNormalizedStopsList.filter(
         (stopName) => stopName.indexOf(normalizedFilter) > -1
       );
-    } else {
-      return this.getNormalizedStopsList;
-    }
+    return this.getNormalizedStopsList;
+  }
+  @computed get getIsTimetableUnLoaded(){
+    console.log("computing getistimetableactive")
+    return !this.selectedStop;
   }
   @computed get getNumberOfFilteredStops() {
     return this.getFilteredStops.length;

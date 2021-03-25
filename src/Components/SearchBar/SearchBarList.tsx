@@ -8,6 +8,7 @@ import {
   SearchBarListStyled,
 } from "./_styled";
 import { NavLink } from "react-router-dom";
+import { BiStar } from "react-icons/bi";
 
 export const SearchBarList = observer(() => {
   return (

@@ -1,6 +1,12 @@
+
 import React from "react";
 import { NavLink } from "react-router-dom";
-
-export const FavBarSearch =()=><div title="Go to search bar">
-    <NavLink to="/">ICO </NavLink>
-</div>
+import { FavBarItemStyled } from "./_styled";
+import {BiSearchAlt} from "react-icons/bi"
+export const FavBarSearch = () => (
+  <NavLink exact to="/">
+    <FavBarItemStyled>
+            <BiSearchAlt/>
+    </FavBarItemStyled>
+  </NavLink>
+);

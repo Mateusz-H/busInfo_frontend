@@ -12,9 +12,6 @@ const handleChange = (e: any) => {
 const handleFocus = () => {
   store.setSearchBarFocused(true);
 };
-const handleBlur = () => {
-  setTimeout(()=>store.setSearchBarFocused(false),1);
-};
 export const SearchBar = observer(() => {
   return (
     <SearchBarStyled>

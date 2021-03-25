@@ -2,9 +2,10 @@ import styled, {StyledComponent} from "styled-components";
 
 export const SearchBarStyled = styled.div`
   display: flex;
+  position: absolute;
+  top:10vh;
   flex-direction: column;
   place-items: center;
-  justify-content: center;
   width: 100vw;
   height: 100vh;
 `;
@@ -45,12 +46,12 @@ export const SearchBarLabelStyled = styled.label`
 `;
 
 export const SearchBarListOverflowStyled = styled.div`
-  height: 28vh;
+  height: 53vh;
   overflow: hidden;
 `;
 export const SearchBarListStyled:StyledComponent<any, any> = styled.div`
   &.hidden {
-    transform: translateY(-28vh);
+    transform: translateY(-53vh);
   }
   transition: 0.5s transform;
   min-width: 320px;
@@ -59,9 +60,9 @@ export const SearchBarListStyled:StyledComponent<any, any> = styled.div`
   font-size: 15px;
   background-color: white;
   margin: 0;
-  height: ${props => Math.min(25,props.numberOfElements*5)}vh;
+  height: ${props => Math.min(50,props.numberOfElements*5)}vh;
   min-height: 5vh;
-  max-height:26vh;
+  max-height:53vh;
   :last-child {
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
