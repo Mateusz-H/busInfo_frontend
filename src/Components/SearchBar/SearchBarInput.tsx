@@ -5,18 +5,18 @@ import {
   SearchBarInputStyled,
   SearchBarLabelStyled,
 } from "./_styled";
-import {store} from "../../stores/store";
-import {observer} from "mobx-react";
+import { store } from "../../stores/store";
+import { observer } from "mobx-react";
 
-export const SearchBarInput = observer(({ value, onChange,onFocus }: any) => {
+export const SearchBarInput = observer(({ value, onChange, onFocus }: any) => {
   return (
     <SearchBarFormStyled autoComplete="off" onSubmit={preventDefault}>
       <SearchBarInputStyled
-          isVisible={store.getVisibilityOfStopsList}
+        isVisible={store.getVisibilityOfStopsList}
         onFocus={onFocus}
         id="stopName"
         type="text"
-          autoFocus
+        autoFocus
         value={value}
         onChange={onChange}
         required

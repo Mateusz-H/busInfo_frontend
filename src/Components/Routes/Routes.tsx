@@ -6,9 +6,9 @@ import { Timetable } from "../Timetable/Timetable";
 
 export const Routes = () => (
   <BrowserRouter>
-      <Route path="/">
-          <FavBar/>
-      </Route>
+    <Route path="/">
+      <FavBar />
+    </Route>
     <Switch>
       <Route exact path="/">
         <SearchBar />

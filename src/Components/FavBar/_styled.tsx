@@ -17,15 +17,15 @@ export const FavBarStyled = styled.div`
   }
 `;
 export const FavBarItemStyled: StyledComponent<any, any> = styled.div`
-    margin-top:2vh;
+  margin-top: 2vh;
   svg {
     width: 48px;
     transition: 500ms all;
     height: 48px;
     color: ${(props) => (props.unactive ? "gray" : "black")};
     :hover {
-      color: ${(props) => (props.unactive ? "gray" : "white")};;
+      color: ${(props) => (props.unactive ? "gray" : "white")};
     }
   }
-  cursor:${props => props.unactive?"not-allowed":"pointer"}
+  cursor: ${(props) => (props.unactive ? "not-allowed" : "pointer")};
 `;

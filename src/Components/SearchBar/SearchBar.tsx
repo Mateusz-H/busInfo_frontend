@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { SearchBarInput } from "./SearchBarInput";
 import { SearchBarList } from "./SearchBarList";
-import { normalizeString } from "../../utils/stringFunctions";
 import { SearchBarStyled } from "./_styled";
 import { observer } from "mobx-react";
 import { store } from "../../stores/store";

@@ -1,3 +1,3 @@
-export function preventDefault(e:any){
-    e.preventDefault()
+export function preventDefault(e: any) {
+  e.preventDefault();
 }

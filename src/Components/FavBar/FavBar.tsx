@@ -5,7 +5,7 @@ import { FavBarStyled } from "./_styled";
 
 export const FavBar = () => (
   <FavBarStyled>
-      <FavBarSearch/>
-      <FavBarLastStop/>
+    <FavBarSearch />
+    <FavBarLastStop />
   </FavBarStyled>
 );

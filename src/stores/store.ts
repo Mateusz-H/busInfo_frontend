@@ -1,4 +1,4 @@
-import { observable, action, computed, makeObservable } from "mobx";
+import { action, computed, makeObservable, observable } from "mobx";
 import { stopInfoHub } from "..";
 import { normalizeString } from "../utils/stringFunctions";
 
@@ -52,8 +52,8 @@ export class Store {
       );
     return this.getNormalizedStopsList;
   }
-  @computed get getIsTimetableUnLoaded(){
-    console.log("computing getistimetableactive")
+  @computed get getIsTimetableUnLoaded() {
+    console.log("computing getistimetableactive");
     return !this.selectedStop;
   }
   @computed get getNumberOfFilteredStops() {

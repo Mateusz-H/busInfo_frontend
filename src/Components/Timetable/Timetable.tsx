@@ -2,13 +2,13 @@ import { observer } from "mobx-react";
 import React from "react";
 import { formatTime } from "../../utils/stringFunctions";
 import { store } from "../../stores/store";
-import {TimetableOverflowStyled, TimetableStyled } from "./_styled";
+import { TimetableOverflowStyled, TimetableStyled } from "./_styled";
 import { TimetableSelectedStop } from "./TimetableSelectedStop";
 
 export const Timetable = observer(() => {
   return store.getCurrentTimetable ? (
     <TimetableStyled>
-      <TimetableSelectedStop/>
+      <TimetableSelectedStop />
       <TimetableOverflowStyled>
         <table>
           <thead>
