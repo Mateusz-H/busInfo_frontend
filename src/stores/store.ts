@@ -14,10 +14,12 @@ export class Store {
   @observable stopsFilter = "";
   @observable filteredStops = [];
   @observable searchBarFocused = false;
+  @observable favoriteStops = new Set();
 
   @action setStops(stopsList: any) {
     this.stops = stopsList;
     this.setNormalizedStops();
+    this.loadFavorites();
     let lastSearchedStop = localStorage.getItem("lastSearchedStop");
     if (lastSearchedStop && stopsList.hasOwnProperty(lastSearchedStop)) {
       this.setCurrentStop(lastSearchedStop);
@@ -44,6 +46,14 @@ export class Store {
   @action setSearchBarFocused(focused: boolean) {
     this.searchBarFocused = focused;
   }
+  @action addFavoriteStop(stopName: string) {
+    addFavoriteStop(stopName);
+    if (this.favoriteStops.size < 5) this.favoriteStops.add(stopName);
+  }
+  @action removeFavoriteStop(stopName: string) {
+    removeFavoriteStop(stopName)
+    this.favoriteStops.delete(stopName);
+  }
   @computed get getFilteredStops() {
     const normalizedFilter = normalizeString(this.stopsFilter);
     if (normalizedFilter)
@@ -53,7 +63,6 @@ export class Store {
     return this.getNormalizedStopsList;
   }
   @computed get getIsTimetableUnLoaded() {
-    console.log("computing getistimetableactive");
     return !this.selectedStop;
   }
   @computed get getNumberOfFilteredStops() {
@@ -71,5 +80,33 @@ export class Store {
   @computed get getCurrentTimetable() {
     return this.timetable[this.selectedStop];
   }
+
+  loadFavorites() {
+    const favorites = getFavoriteStops();
+    favorites.forEach((stop) => {
+      if (this.stops.hasOwnProperty(stop)) this.favoriteStops.add(stop);
+    });
+  }
+}
+function getFavoriteStops(): string[] {
+  const favoritesString = localStorage.getItem("favoriteStops");
+  if (favoritesString) {
+    const favorites = JSON.parse(favoritesString);
+    if (Array.isArray(favorites)) return favorites.splice(0, 5);
+    localStorage.removeItem("favoriteStops");
+  }
+  return [];
+}
+function setFavoriteStops(stops: string[]) {
+  const favoritesString = JSON.stringify(stops);
+  localStorage.setItem("favoriteStops", favoritesString);
+}
+function addFavoriteStop(stopName: string) {
+  const favorites = getFavoriteStops();
+  if (favorites.length < 5) setFavoriteStops([...favorites, stopName]);
+}
+function removeFavoriteStop(stopName: string) {
+  const favorites = getFavoriteStops();
+  setFavoriteStops([...favorites.filter((x) => x !== stopName)]);
 }
 export const store = new Store();
