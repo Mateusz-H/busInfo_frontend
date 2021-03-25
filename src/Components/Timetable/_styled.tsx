@@ -1,4 +1,4 @@
-import styled, {keyframes, StyledComponent} from "styled-components";
+import styled, { keyframes, StyledComponent } from "styled-components";
 
 const fadeIn = keyframes`
   from { opacity: 0; }
@@ -41,7 +41,10 @@ export const TimetableOverflowStyled = styled.div`
   max-height: 70vh;
   overflow-y: auto;
 `;
-export const TimetableSelectedStopStyled:StyledComponent<any, any> = styled.div`
+export const TimetableSelectedStopStyled: StyledComponent<
+  any,
+  any
+> = styled.div`
   font-size: 2em;
   font-weight: bold;
   margin-bottom: 0.5em;
@@ -49,8 +52,18 @@ export const TimetableSelectedStopStyled:StyledComponent<any, any> = styled.div`
     transform: translateY(0.2em);
     fill: ${(props) => (props.favorite ? "goldenrod" : "black")};
     :hover {
-      fill: goldenrod;
-      cursor: pointer;
+      fill: ${(props) =>
+        props.limitReached
+          ? props.favorite
+            ? "goldenrod"
+            : "red"
+          : "goldenrod"};
+      cursor: ${(props) =>
+        props.limitReached
+          ? props.favorite
+            ? "pointer"
+            : "not-allowed"
+          : "pointer"};
     }
   }
 `;

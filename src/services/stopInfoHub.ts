@@ -17,7 +17,11 @@ export class StopInfoHub {
     this.stopsReceive();
   }
   joinToStopChannel(stopName: string) {
-    if (store.selectedStop) {
+    if (
+      store.selectedStop &&
+      store.selectedStop !== stopName &&
+      !store.favoriteStops.has(store.selectedStop)
+    ) {
       this.leaveSymbolChannel(store.selectedStop);
     }
     this.hubConnection.emit("joinToStopChannel", stopName);

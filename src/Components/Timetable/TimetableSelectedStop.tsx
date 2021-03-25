@@ -13,8 +13,9 @@ const addStopToFavorite = (stopName: string) => () => {
 export const TimetableSelectedStop = observer(() => (
   <TimetableSelectedStopStyled
     favorite={store.favoriteStops.has(store.selectedStop)}
+    limitReached={store.favoriteStops.size>=5}
   >
     <span>{store.selectedStop}</span>
-    <GiRoundStar onClick={addStopToFavorite(store.selectedStop)} />
+    <GiRoundStar title={store.favoriteStops.size>=5?"Osiągnięto maksymalną liczbe ulubionych przystanków":""} onClick={addStopToFavorite(store.selectedStop)} />
   </TimetableSelectedStopStyled>
 ));

@@ -1,4 +1,4 @@
-import { action, computed, makeObservable, observable } from "mobx";
+import { action, computed, makeObservable, observable, toJS } from "mobx";
 import { stopInfoHub } from "..";
 import { normalizeString } from "../utils/stringFunctions";
 
@@ -48,11 +48,16 @@ export class Store {
   }
   @action addFavoriteStop(stopName: string) {
     addFavoriteStop(stopName);
-    if (this.favoriteStops.size < 5) this.favoriteStops.add(stopName);
+    if (this.favoriteStops.size < 5) {
+      this.favoriteStops.add(stopName);
+      stopInfoHub.joinToStopChannel(stopName);
+    }
   }
   @action removeFavoriteStop(stopName: string) {
-    removeFavoriteStop(stopName)
+    removeFavoriteStop(stopName);
     this.favoriteStops.delete(stopName);
+    if (this.selectedStop !== stopName)
+      stopInfoHub.leaveSymbolChannel(stopName);
   }
   @computed get getFilteredStops() {
     const normalizedFilter = normalizeString(this.stopsFilter);
@@ -80,11 +85,18 @@ export class Store {
   @computed get getCurrentTimetable() {
     return this.timetable[this.selectedStop];
   }
+  @computed get getFavoritesStops() {
+    console.log("gettingstops", Array.from(toJS(this.favoriteStops)));
+    return Array.from(toJS(this.favoriteStops));
+  }
 
   loadFavorites() {
     const favorites = getFavoriteStops();
     favorites.forEach((stop) => {
-      if (this.stops.hasOwnProperty(stop)) this.favoriteStops.add(stop);
+      if (this.stops.hasOwnProperty(stop)) {
+        this.favoriteStops.add(stop);
+        stopInfoHub.joinToStopChannel(stop);
+      }
     });
   }
 }
